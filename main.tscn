@@ -1,9 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dk2uxsqyi2ylg"]
+[gd_scene load_steps=6 format=3 uid="uid://dk2uxsqyi2ylg"]
 
 [ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://arena.tscn" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://jf2xhx0ukpmu" path="res://paddle.tscn" id="2_h2yge"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://bouncy_material.tres" id="4_1bvp3"]
+
+[sub_resource type="Curve3D" id="Curve3D_lquwl"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0.3, 2, 0, 0, 0, 0, 0, 0, 0, 0.3, -2),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [node name="Main" type="Node"]
+script = ExtResource("1_1bvp3")
 
 [node name="Arena" parent="." instance=ExtResource("1_0xm2m")]
 
@@ -25,7 +36,34 @@ shadow_enabled = true
 
 [node name="RightPaddle" parent="." instance=ExtResource("2_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 0)
+physics_material_override = ExtResource("4_1bvp3")
 
 [node name="LeftPaddle" parent="." instance=ExtResource("2_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.3, 0)
+physics_material_override = ExtResource("4_1bvp3")
 player_type = 1
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_lquwl")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 2)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DebugLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = 17.0
+offset_right = 53.0
+offset_bottom = 40.0
+grow_horizontal = 2

@@ -1,0 +1,1 @@
+ffmpeg -y -i test.avi -c:v libx264 -b:v 1000k -c:a aac -b:a 128k output.mp4

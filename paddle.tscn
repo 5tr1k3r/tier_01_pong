@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://jf2xhx0ukpmu"]
+[gd_scene load_steps=6 format=3 uid="uid://jf2xhx0ukpmu"]
 
 [ext_resource type="Script" uid="uid://d31tebd544l8a" path="res://paddle.gd" id="1_0sbc1"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://bouncy_material.tres" id="1_tbytw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0sbc1"]
 radius = 0.1
@@ -14,6 +15,8 @@ radius = 0.1
 height = 0.6
 
 [node name="Paddle" type="AnimatableBody3D"]
+collision_mask = 4
+physics_material_override = ExtResource("1_tbytw")
 script = ExtResource("1_0sbc1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
