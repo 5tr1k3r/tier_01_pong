@@ -4,6 +4,7 @@ extends Node
 @onready var right_score_label: Label = $UI/RightScoreLabel
 @onready var left_score_label: Label = $UI/LeftScoreLabel
 @onready var camera_pivot: Marker3D = $CameraPivot
+@onready var ball_spawn_timer: Timer = $BallSpawnTimer
 
 var right_score: int = 0
 var left_score: int = 0
@@ -14,7 +15,7 @@ func _ready() -> void:
 	else:
 		printerr("Main could not find Arena node!")
 	
-	spawn_ball()
+	ball_spawn_timer.start()
 
 func spawn_ball() -> void:
 	var ball: Ball = preload("res://game/ball/ball.tscn").instantiate()
@@ -48,4 +49,7 @@ func update_score(scoring_side: Enums.PlayerSide):
 func _on_arena_score_occurred(player_side: Enums.PlayerSide) -> void:
 	# print("Player ", Enums.PlayerSide.find_key(player_side), " scored!")
 	update_score(player_side)
+	ball_spawn_timer.start()
+
+func _on_ball_spawn_timer_timeout() -> void:
 	spawn_ball()
