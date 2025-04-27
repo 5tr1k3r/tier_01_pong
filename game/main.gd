@@ -3,6 +3,7 @@ extends Node
 @onready var arena: Arena = $Arena
 @onready var right_score_label: Label = $UI/RightScoreLabel
 @onready var left_score_label: Label = $UI/LeftScoreLabel
+@onready var camera_pivot: Marker3D = $CameraPivot
 
 var right_score: int = 0
 var left_score: int = 0
