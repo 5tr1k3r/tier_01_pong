@@ -3,7 +3,9 @@ class_name Paddle
 
 @export var player_type: Enums.PlayerType
 @export var speed: float = 6.0
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 var max_z: float = 2.15
+var direction: float = 0.0
 
 func _ready() -> void:
 	var original_material: StandardMaterial3D = $MeshInstance3D.get_active_material(0)
@@ -18,25 +20,24 @@ func _ready() -> void:
 		Enums.PlayerType.AI:
 			new_material.albedo_color = Color.PURPLE
 
-
 func _physics_process(delta: float) -> void:
-	var direction = Vector3.ZERO
+	direction = 0.0
 	
 	match player_type:
 		Enums.PlayerType.ONE:
-			if Input.is_action_pressed("p1_move_up"):
-				direction.z -= 1.0
-			if Input.is_action_pressed("p1_move_down"):
-				direction.z += 1.0
+			direction = Input.get_axis("p1_move_up", "p1_move_down")
 		Enums.PlayerType.TWO:
-			if Input.is_action_pressed("p2_move_up"):
-				direction.z -= 1.0
-			if Input.is_action_pressed("p2_move_down"):
-				direction.z += 1.0
+			direction = Input.get_axis("p2_move_up", "p2_move_down")
 		_:
 			pass
 	
-	if direction != Vector3.ZERO:
-		direction = direction.normalized()
+	if direction:
+		if direction > 0:
+			animation_player.play("move_down")
+		else:
+			animation_player.play("move_up")
 	
-	position.z = clampf(position.z + direction.z * speed * delta, -max_z, max_z)
+		position.z = clampf(position.z + direction * speed * delta, -max_z, max_z)
+	else:
+		animation_player.play("RESET", 0.1)
+	
