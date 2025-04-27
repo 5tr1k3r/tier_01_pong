@@ -1,5 +1,4 @@
 extends RigidBody3D
-
 class_name Ball
 
 var starting_impulse_value: float = 5.0
@@ -22,7 +21,3 @@ func _ready() -> void:
 		apply_central_impulse(initial_impulse)
 	else:
 		printerr("Ball added to tree, but initial impulse was not calculated!")
-
-#func _physics_process(_delta: float) -> void:
-	## Force angular velocity to zero every physics frame
-	#angular_velocity = Vector3.ZERO

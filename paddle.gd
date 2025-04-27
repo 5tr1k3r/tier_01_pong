@@ -1,4 +1,5 @@
 extends AnimatableBody3D
+class_name Paddle
 
 @export var player_type: Enums.PlayerType
 @export var speed: float = 6.0
