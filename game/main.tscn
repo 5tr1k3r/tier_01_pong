@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dk2uxsqyi2ylg"]
 
-[ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://arena.tscn" id="1_0xm2m"]
-[ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://main.gd" id="1_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://jf2xhx0ukpmu" path="res://paddle.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://game/arena/arena.tscn" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://game/main.gd" id="1_vop5m"]
+[ext_resource type="PackedScene" uid="uid://jf2xhx0ukpmu" path="res://game/paddle/paddle.tscn" id="2_h2yge"]
 [ext_resource type="FontFile" uid="uid://b1q1rf2rnin7t" path="res://assets/Kenney Bold.ttf" id="5_lquwl"]
 
 [sub_resource type="Curve3D" id="Curve3D_lquwl"]
@@ -14,7 +14,7 @@ _data = {
 point_count = 2
 
 [node name="Main" type="Node"]
-script = ExtResource("1_1bvp3")
+script = ExtResource("1_vop5m")
 
 [node name="Arena" parent="." instance=ExtResource("1_0xm2m")]
 

@@ -16,7 +16,7 @@ func _ready() -> void:
 	spawn_ball()
 
 func spawn_ball() -> void:
-	var ball: Ball = preload("res://ball.tscn").instantiate()
+	var ball: Ball = preload("res://game/ball/ball.tscn").instantiate()
 
 	var spawn_location: PathFollow3D = $SpawnPath/SpawnLocation
 	spawn_location.progress_ratio = randf()
