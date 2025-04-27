@@ -29,6 +29,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		for _i in range(50):
 			spawn_ball()
+	
+	if event.is_action_pressed("ui_page_down"):
+		camera_pivot.rotation.x += deg_to_rad(10)
+	
+	if event.is_action_pressed("ui_page_up"):
+		camera_pivot.rotation.x -= deg_to_rad(10)
 
 func update_score(scoring_side: Enums.PlayerSide):
 	match scoring_side:
