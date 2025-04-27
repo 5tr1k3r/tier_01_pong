@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnswvw7k0tbvo"]
+
+[ext_resource type="Script" uid="uid://d214hfkiqolyi" path="res://score_zone.gd" id="1_k42b3"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_gssjq"]
+plane = Plane(1, 0, 0, 0)
+
+[node name="ScoreZone" type="Area3D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_k42b3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("WorldBoundaryShape3D_gssjq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

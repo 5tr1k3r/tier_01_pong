@@ -1,12 +1,6 @@
 extends AnimatableBody3D
 
-enum PlayerType {
-	PLAYER_ONE,
-	PLAYER_TWO,
-	PLAYER_AI
-}
-
-@export var player_type: PlayerType
+@export var player_type: Enums.PlayerType
 @export var speed: float = 6.0
 var max_z: float = 2.15
 
@@ -16,11 +10,11 @@ func _ready() -> void:
 	$MeshInstance3D.set_surface_override_material(0, new_material)
 	
 	match player_type:
-		PlayerType.PLAYER_ONE:
+		Enums.PlayerType.ONE:
 			new_material.albedo_color = Color.CHARTREUSE
-		PlayerType.PLAYER_TWO:
+		Enums.PlayerType.TWO:
 			new_material.albedo_color = Color.RED
-		PlayerType.PLAYER_AI:
+		Enums.PlayerType.AI:
 			new_material.albedo_color = Color.PURPLE
 
 
@@ -28,12 +22,12 @@ func _physics_process(delta: float) -> void:
 	var direction = Vector3.ZERO
 	
 	match player_type:
-		PlayerType.PLAYER_ONE:
+		Enums.PlayerType.ONE:
 			if Input.is_action_pressed("p1_move_up"):
 				direction.z -= 1.0
 			if Input.is_action_pressed("p1_move_down"):
 				direction.z += 1.0
-		PlayerType.PLAYER_TWO:
+		Enums.PlayerType.TWO:
 			if Input.is_action_pressed("p2_move_up"):
 				direction.z -= 1.0
 			if Input.is_action_pressed("p2_move_down"):

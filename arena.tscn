@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bmu2cagi6ktli"]
+[gd_scene load_steps=7 format=3 uid="uid://bmu2cagi6ktli"]
 
+[ext_resource type="Script" uid="uid://45rmt4wr4xa4" path="res://arena.gd" id="1_27ga2"]
 [ext_resource type="PackedScene" uid="uid://cxgdekfokh31n" path="res://wall.tscn" id="1_ubfh8"]
+[ext_resource type="PackedScene" uid="uid://cnswvw7k0tbvo" path="res://score_zone.tscn" id="3_h0wof"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dm0k"]
 albedo_color = Color(0.234312, 0.428678, 0.42475, 1)
@@ -15,6 +17,7 @@ bottom_radius = 0.04
 height = 5.0
 
 [node name="Arena" type="Node3D"]
+script = ExtResource("1_27ga2")
 
 [node name="Walls" type="Node" parent="."]
 
@@ -25,10 +28,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 2.5)
 
 [node name="TempRightWall" parent="Walls" instance=ExtResource("1_ubfh8")]
+process_mode = 4
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0, 0)
+visible = false
 
 [node name="TempLeftWall" parent="Walls" instance=ExtResource("1_ubfh8")]
+process_mode = 4
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 0, 0)
+visible = false
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -38,3 +45,10 @@ skeleton = NodePath("../..")
 [node name="Divider" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = SubResource("CylinderMesh_444vf")
+
+[node name="RightScoreZone" parent="." instance=ExtResource("3_h0wof")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 0)
+
+[node name="LeftScoreZone" parent="." instance=ExtResource("3_h0wof")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 3.5, 0, 0)
+scoring_player_side = 1

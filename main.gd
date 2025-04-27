@@ -1,10 +1,21 @@
 extends Node
 
-var last_ball: Ball
 @onready var ball_velocity_label: Label = $UI/DebugLabel
+@onready var arena: Arena = $Arena
+@onready var right_score_label: Label = $UI/RightScoreLabel
+@onready var left_score_label: Label = $UI/LeftScoreLabel
+
+var last_ball: Ball
 var last_ball_material: StandardMaterial3D = preload("res://last_ball_material.tres")
+var right_score: int = 0
+var left_score: int = 0
 
 func _ready() -> void:
+	if arena:
+		arena.score_occurred.connect(_on_arena_score_occurred)
+	else:
+		printerr("Main could not find Arena node!")
+	
 	spawn_ball()
 
 func spawn_ball() -> void:
@@ -38,3 +49,17 @@ func update_ball_velocity_label() -> void:
 		var ball_velocity = last_ball.linear_velocity.length()
 		var ball_angular_velocity = last_ball.angular_velocity.length()
 		ball_velocity_label.text = "last ball\nvelocity: %.2f\nangular velocity: %.2f" % [ball_velocity, ball_angular_velocity]
+
+func update_score_labels(scoring_side: Enums.PlayerSide):
+	match scoring_side:
+		Enums.PlayerSide.RIGHT:
+			right_score += 1
+			right_score_label.text = str(right_score)
+		Enums.PlayerSide.LEFT:
+			left_score += 1
+			left_score_label.text = str(left_score)
+
+func _on_arena_score_occurred(player_side: Enums.PlayerSide) -> void:
+	# print("Player ", Enums.PlayerSide.find_key(player_side), " scored!")
+	update_score_labels(player_side)
+	spawn_ball()
