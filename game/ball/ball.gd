@@ -9,6 +9,7 @@ signal ball_got_stuck
 @onready var high_velocity_hit_sound: AudioStreamPlayer3D = $HighVelocityHitSound
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+@onready var particles: GPUParticles3D = $GPUParticles3D
 
 const STARTING_IMPULSE_VALUE: float = 5.0
 const HIGH_VELOCITY_THRESHOLD: float = STARTING_IMPULSE_VALUE * 1.5
@@ -17,6 +18,7 @@ const DYING_DURATION: float = 0.4
 var initial_impulse: Vector3 = Vector3.ZERO
 var is_dying: bool = false
 var unique_material: StandardMaterial3D
+var particle_process_material: ParticleProcessMaterial
 
 func setup(start_position: Vector3) -> void:
 	position = start_position
@@ -38,6 +40,15 @@ func _ready() -> void:
 	unique_material.emission = Color.BLACK
 	
 	stuck_timer.start()
+	
+	particle_process_material = particles.process_material as ParticleProcessMaterial
+	if not particle_process_material:
+		printerr("Ball could not find ParticleProcessMaterial!")
+	else:
+		# IMPORTANT: Ensure inherit velocity is off if it's broken/unused (seems broken in Godot 4.4)
+		particle_process_material.inherit_velocity_ratio = 0.0
+		# Set a default direction in case velocity is zero initially
+		particle_process_material.direction = Vector3.BACK
 	
 	if initial_impulse != Vector3.ZERO:
 		apply_central_impulse(initial_impulse)
@@ -63,6 +74,12 @@ func _physics_process(_delta: float) -> void:
 
 	# Now lerp the emission using this correctly mapped and clamped ratio
 	unique_material.emission = lerp(Color.BLACK, HIGH_VELOCITY_EMISSION, emission_ratio)
+	
+	if current_speed > 0.01: # Avoid issues with zero vector
+		particle_process_material.direction = -linear_velocity.normalized()
+	
+	if current_speed > HIGH_VELOCITY_THRESHOLD:
+		particles.emitting = true
 
 func die() -> void:
 	if is_dying:
@@ -71,6 +88,7 @@ func die() -> void:
 	is_dying = true
 	freeze = true
 	collision_shape.disabled = true
+	particles.emitting = false
 	
 	var tween := create_tween()
 	tween.set_ease(Tween.EASE_IN)

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqk3ktjflb5ey"]
+[gd_scene load_steps=15 format=3 uid="uid://cqk3ktjflb5ey"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://game/resources/bouncy_material.tres" id="1_41u45"]
 [ext_resource type="Script" uid="uid://hjkwu6vqoty4" path="res://game/ball/ball.gd" id="1_x8fbi"]
 [ext_resource type="AudioStream" uid="uid://mjj63vpp0f87" path="res://game/ball/paddle_hit.ogg" id="3_3refl"]
 [ext_resource type="AudioStream" uid="uid://b403skqcbuu31" path="res://game/ball/high_velocity_hit.ogg" id="4_6syx0"]
 [ext_resource type="AudioStream" uid="uid://du40blrbbkjc2" path="res://game/ball/wall_hit.ogg" id="4_s334u"]
+[ext_resource type="SphereMesh" uid="uid://d35eu8fng58lj" path="res://game/ball/particle.tres" id="6_6syx0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x8fbi"]
 radius = 0.08
@@ -18,6 +19,32 @@ alpha_antialiasing_mode = 0
 material = SubResource("StandardMaterial3D_s334u")
 radius = 0.08
 height = 0.16
+
+[sub_resource type="Gradient" id="Gradient_6syx0"]
+colors = PackedColorArray(1, 1, 1, 0.392157, 0.703121, 3.06834e-06, 5.77569e-07, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fhoup"]
+gradient = SubResource("Gradient_6syx0")
+
+[sub_resource type="Curve" id="Curve_6syx0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fhoup"]
+curve = SubResource("Curve_6syx0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s334u"]
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+spread = 22.0
+initial_velocity_min = 0.4
+initial_velocity_max = 1.5
+gravity = Vector3(0, 0, 0)
+damping_min = 0.2
+damping_max = 1.5
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_fhoup")
+color_ramp = SubResource("GradientTexture1D_fhoup")
 
 [node name="Ball" type="RigidBody3D"]
 collision_layer = 4
@@ -54,6 +81,15 @@ panning_strength = 1.5
 stream = ExtResource("4_s334u")
 volume_db = -2.0
 panning_strength = 1.5
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+cast_shadow = 0
+emitting = false
+amount = 500
+lifetime = 0.2
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_s334u")
+draw_pass_1 = ExtResource("6_6syx0")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="StuckTimer" to="." method="_on_stuck_timer_timeout"]
