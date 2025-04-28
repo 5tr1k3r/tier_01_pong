@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqk3ktjflb5ey"]
+[gd_scene load_steps=9 format=3 uid="uid://cqk3ktjflb5ey"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://game/resources/bouncy_material.tres" id="1_41u45"]
 [ext_resource type="Script" uid="uid://hjkwu6vqoty4" path="res://game/ball/ball.gd" id="1_x8fbi"]
@@ -9,7 +9,13 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_x8fbi"]
 radius = 0.08
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s334u"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+
 [sub_resource type="SphereMesh" id="SphereMesh_cbx31"]
+material = SubResource("StandardMaterial3D_s334u")
 radius = 0.08
 height = 0.16
 

@@ -55,7 +55,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 2)
 [node name="UI" parent="." instance=ExtResource("6_wjctj")]
 
 [node name="BallSpawnTimer" type="Timer" parent="."]
-wait_time = 0.6
+wait_time = 0.75
 one_shot = true
 
 [node name="BallGotStuckSound" type="AudioStreamPlayer3D" parent="."]
