@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://game/arena/arena.tscn" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://game/main.gd" id="1_vop5m"]
 [ext_resource type="PackedScene" uid="uid://jf2xhx0ukpmu" path="res://game/paddle/paddle.tscn" id="2_h2yge"]
-[ext_resource type="FontFile" uid="uid://b1q1rf2rnin7t" path="res://assets/Kenney Bold.ttf" id="5_lquwl"]
 [ext_resource type="AudioStream" uid="uid://cjbtry5bc735s" path="res://game/resources/audio/ball_got_stuck.ogg" id="5_wjctj"]
+[ext_resource type="PackedScene" uid="uid://cok408amobp38" path="res://game/ui/ui.tscn" id="6_wjctj"]
 [ext_resource type="AudioStream" uid="uid://b43jdr6lsw452" path="res://game/resources/audio/right_player_scores.ogg" id="6_xkbyp"]
 [ext_resource type="AudioStream" uid="uid://dg4e7pjqxduk7" path="res://game/resources/audio/left_player_scores.ogg" id="7_lx3aj"]
 
@@ -52,37 +52,7 @@ curve = SubResource("Curve3D_lquwl")
 [node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 2)
 
-[node name="UI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LeftScoreLabel" type="Label" parent="UI"]
-layout_mode = 1
-offset_right = 250.0
-offset_bottom = 250.0
-theme_override_fonts/font = ExtResource("5_lquwl")
-theme_override_font_sizes/font_size = 47
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RightScoreLabel" type="Label" parent="UI"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -250.0
-offset_bottom = 250.0
-grow_horizontal = 0
-theme_override_fonts/font = ExtResource("5_lquwl")
-theme_override_font_sizes/font_size = 47
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="UI" parent="." instance=ExtResource("6_wjctj")]
 
 [node name="BallSpawnTimer" type="Timer" parent="."]
 wait_time = 0.6
