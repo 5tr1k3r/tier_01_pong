@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cqk3ktjflb5ey"]
+[gd_scene load_steps=8 format=3 uid="uid://cqk3ktjflb5ey"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://game/resources/bouncy_material.tres" id="1_41u45"]
 [ext_resource type="Script" uid="uid://hjkwu6vqoty4" path="res://game/ball/ball.gd" id="1_x8fbi"]
 [ext_resource type="AudioStream" uid="uid://mjj63vpp0f87" path="res://game/ball/paddle_hit.ogg" id="3_3refl"]
+[ext_resource type="AudioStream" uid="uid://b403skqcbuu31" path="res://game/ball/high_velocity_hit.ogg" id="4_6syx0"]
 [ext_resource type="AudioStream" uid="uid://du40blrbbkjc2" path="res://game/ball/wall_hit.ogg" id="4_s334u"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_x8fbi"]
@@ -36,6 +37,11 @@ one_shot = true
 
 [node name="PaddleHitSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_3refl")
+panning_strength = 1.5
+
+[node name="HighVelocityHitSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_6syx0")
+volume_db = -10.0
 panning_strength = 1.5
 
 [node name="WallHitSound" type="AudioStreamPlayer3D" parent="."]
