@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cnswvw7k0tbvo"]
 
-[ext_resource type="Script" uid="uid://d214hfkiqolyi" path="res://score_zone.gd" id="1_k42b3"]
+[ext_resource type="Script" uid="uid://d214hfkiqolyi" path="res://game/arena/score_zone/score_zone.gd" id="1_k42b3"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_gssjq"]
 plane = Plane(1, 0, 0, 0)
