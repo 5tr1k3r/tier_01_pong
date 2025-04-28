@@ -4,7 +4,7 @@ class_name Paddle
 @export var player_type: Enums.PlayerType
 @export var speed: float = 6.0
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-var max_z: float = 2.15
+const PADDLE_BOUNDARY_Z: float = 2.15
 var direction: float = 0.0
 
 func _ready() -> void:
@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			animation_player.play("move_up")
 	
-		position.z = clampf(position.z + direction * speed * delta, -max_z, max_z)
+		position.z = clampf(position.z + direction * speed * delta, -PADDLE_BOUNDARY_Z, PADDLE_BOUNDARY_Z)
 	else:
 		animation_player.play("RESET", 0.1)
 	
