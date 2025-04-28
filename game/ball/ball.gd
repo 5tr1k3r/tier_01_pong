@@ -15,6 +15,7 @@ const STARTING_IMPULSE_VALUE: float = 5.0
 const HIGH_VELOCITY_THRESHOLD: float = STARTING_IMPULSE_VALUE * 1.5
 const HIGH_VELOCITY_EMISSION := Color.RED * 3.0 # Emission needs intensity > 1 to glow properly
 const DYING_DURATION: float = 0.4
+const BALL_GROUP := "balls"
 var initial_impulse: Vector3 = Vector3.ZERO
 var is_dying: bool = false
 var unique_material: StandardMaterial3D
@@ -33,6 +34,8 @@ func setup(start_position: Vector3) -> void:
 	initial_impulse = rotated_direction.normalized() * STARTING_IMPULSE_VALUE
 
 func _ready() -> void:
+	add_to_group(BALL_GROUP)
+	
 	# Make the material unique so we can manipulate it and not affect other balls
 	unique_material = mesh_instance.get_active_material(0).duplicate()
 	mesh_instance.set_surface_override_material(0, unique_material)
@@ -110,3 +113,7 @@ func _on_stuck_timer_timeout() -> void:
 	print("BALL STUCK! BALL STUCK!")
 	emit_signal("ball_got_stuck")
 	die()
+
+func _exit_tree() -> void:
+	if is_in_group(BALL_GROUP):
+		remove_from_group(BALL_GROUP)

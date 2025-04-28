@@ -85,3 +85,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_babdf")
 }
 playback_default_blend_time = 0.2
+
+[node name="AIReactionTimer" type="Timer" parent="."]
+wait_time = 0.2
