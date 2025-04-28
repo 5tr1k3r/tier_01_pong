@@ -25,6 +25,8 @@ func spawn_ball() -> void:
 	ball.setup(spawn_location.position)
 	
 	add_child(ball)
+	
+	ball.ball_got_stuck.connect(_on_ball_got_stuck)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
@@ -53,3 +55,6 @@ func _on_arena_score_occurred(player_side: Enums.PlayerSide) -> void:
 
 func _on_ball_spawn_timer_timeout() -> void:
 	spawn_ball()
+
+func _on_ball_got_stuck() -> void:
+	ball_spawn_timer.start()
