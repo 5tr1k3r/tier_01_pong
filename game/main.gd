@@ -5,6 +5,11 @@ extends Node
 @onready var left_score_label: Label = $UI/LeftScoreLabel
 @onready var camera_pivot: Marker3D = $CameraPivot
 @onready var ball_spawn_timer: Timer = $BallSpawnTimer
+@onready var ball_got_stuck_sound: AudioStreamPlayer3D = $BallGotStuckSound
+@onready var score_occurred_sound: AudioStreamPlayer3D = $ScoreOccurredSound
+
+@export var right_player_score_sound: AudioStream
+@export var left_player_score_sound: AudioStream
 
 var right_score: int = 0
 var left_score: int = 0
@@ -48,8 +53,27 @@ func update_score(scoring_side: Enums.PlayerSide) -> void:
 			left_score += 1
 			left_score_label.text = str(left_score)
 
+func play_score_sound(scoring_side: Enums.PlayerSide) -> void:
+	var sound_to_play : AudioStream = null
+
+	match scoring_side:
+		Enums.PlayerSide.RIGHT:
+			if right_player_score_sound:
+				sound_to_play = right_player_score_sound
+			else:
+				printerr("Right player score sound not assigned in the Inspector!")
+		Enums.PlayerSide.LEFT:
+			if left_player_score_sound:
+				sound_to_play = left_player_score_sound
+			else:
+				printerr("Left player score sound not assigned in the Inspector!")
+
+	if sound_to_play:
+		score_occurred_sound.stream = sound_to_play
+		score_occurred_sound.play()
+
 func _on_arena_score_occurred(player_side: Enums.PlayerSide) -> void:
-	# print("Player ", Enums.PlayerSide.find_key(player_side), " scored!")
+	play_score_sound(player_side)
 	update_score(player_side)
 	ball_spawn_timer.start()
 
@@ -57,4 +81,5 @@ func _on_ball_spawn_timer_timeout() -> void:
 	spawn_ball()
 
 func _on_ball_got_stuck() -> void:
+	ball_got_stuck_sound.play()
 	ball_spawn_timer.start()

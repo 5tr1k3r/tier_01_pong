@@ -4,6 +4,9 @@ class_name Ball
 signal ball_got_stuck
 
 @onready var stuck_timer: Timer = $StuckTimer
+@onready var paddle_hit_sound: AudioStreamPlayer3D = $PaddleHitSound
+@onready var wall_hit_sound: AudioStreamPlayer3D = $WallHitSound
+
 var starting_impulse_value: float = 5.0
 var initial_impulse: Vector3 = Vector3.ZERO
 
@@ -30,6 +33,9 @@ func _ready() -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is Paddle:
 		stuck_timer.start()
+		paddle_hit_sound.play()
+	elif body is Wall:
+		wall_hit_sound.play()
 
 func _on_stuck_timer_timeout() -> void:
 	print("BALL STUCK! BALL STUCK!")

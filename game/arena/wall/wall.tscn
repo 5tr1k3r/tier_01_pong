@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxgdekfokh31n"]
+[gd_scene load_steps=5 format=3 uid="uid://cxgdekfokh31n"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://game/resources/bouncy_material.tres" id="1_xxgf6"]
+[ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://game/resources/bouncy_material.tres" id="1_mq3ft"]
+[ext_resource type="Script" uid="uid://c0t8dt8xgeuh3" path="res://game/arena/wall/wall.gd" id="2_f4qfa"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_g21bf"]
 size = Vector3(7, 1.5, 0.1)
@@ -11,7 +12,8 @@ size = Vector3(16.5, 1.5, 4)
 [node name="Wall" type="StaticBody3D"]
 collision_layer = 2
 collision_mask = 4
-physics_material_override = ExtResource("1_xxgf6")
+physics_material_override = ExtResource("1_mq3ft")
+script = ExtResource("2_f4qfa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_g21bf")
