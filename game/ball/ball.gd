@@ -11,7 +11,8 @@ signal ball_got_stuck
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 
 const STARTING_IMPULSE_VALUE: float = 5.0
-const HIGH_VELOCITY_THRESHOLD: float = 1.5
+const HIGH_VELOCITY_THRESHOLD: float = STARTING_IMPULSE_VALUE * 1.5
+const HIGH_VELOCITY_EMISSION := Color.RED * 3.0 # Emission needs intensity > 1 to glow properly
 const DYING_DURATION: float = 0.4
 var initial_impulse: Vector3 = Vector3.ZERO
 var is_dying: bool = false
@@ -33,6 +34,8 @@ func _ready() -> void:
 	# Make the material unique so we can manipulate it and not affect other balls
 	unique_material = mesh_instance.get_active_material(0).duplicate()
 	mesh_instance.set_surface_override_material(0, unique_material)
+	unique_material.emission_enabled = true
+	unique_material.emission = Color.BLACK
 	
 	stuck_timer.start()
 	
@@ -40,6 +43,26 @@ func _ready() -> void:
 		apply_central_impulse(initial_impulse)
 	else:
 		printerr("Ball added to tree, but initial impulse was not calculated!")
+
+func _physics_process(_delta: float) -> void:
+	if is_dying: # Don't update visuals if fading out
+		return
+
+	# Get the current speed
+	var current_speed := linear_velocity.length()
+
+	# Calculate the interpolation factor ONLY between the minimum and maximum desired speeds
+	# inverse_lerp(from, to, value) returns where 'value' is between 'from' and 'to' (0.0 to 1.0)
+	var emission_ratio := inverse_lerp(STARTING_IMPULSE_VALUE, HIGH_VELOCITY_THRESHOLD, current_speed)
+
+	# Clamp the ratio:
+	# - If speed is below MIN_SPEED_FOR_EMISSION, inverse_lerp gives < 0, clamp makes it 0.
+	# - If speed is above MAX_VISUAL_VELOCITY, inverse_lerp gives > 1, clamp makes it 1.
+	# - If speed is within the range, it gives 0-1, clamp leaves it unchanged.
+	emission_ratio = clampf(emission_ratio, 0.0, 1.0)
+
+	# Now lerp the emission using this correctly mapped and clamped ratio
+	unique_material.emission = lerp(Color.BLACK, HIGH_VELOCITY_EMISSION, emission_ratio)
 
 func die() -> void:
 	if is_dying:
@@ -55,7 +78,7 @@ func die() -> void:
 	tween.tween_callback(queue_free)
 
 func _on_body_entered(body: Node) -> void:
-	var is_high_velocity_hit := linear_velocity.length() / STARTING_IMPULSE_VALUE > HIGH_VELOCITY_THRESHOLD
+	var is_high_velocity_hit := linear_velocity.length() > HIGH_VELOCITY_THRESHOLD
 	
 	if body is Paddle:
 		stuck_timer.start()
