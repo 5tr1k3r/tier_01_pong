@@ -39,7 +39,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_page_up"):
 		camera_pivot.rotation.x -= deg_to_rad(10)
 
-func update_score(scoring_side: Enums.PlayerSide):
+func update_score(scoring_side: Enums.PlayerSide) -> void:
 	match scoring_side:
 		Enums.PlayerSide.RIGHT:
 			right_score += 1
