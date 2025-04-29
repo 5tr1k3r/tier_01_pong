@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
-*.tmp
 .idea/
 export/
+*.tmp
+export_presets.cfg
