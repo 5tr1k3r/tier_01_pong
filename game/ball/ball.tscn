@@ -11,9 +11,7 @@
 radius = 0.08
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s334u"]
-transparency = 3
-alpha_hash_scale = 1.0
-alpha_antialiasing_mode = 0
+transparency = 4
 
 [sub_resource type="SphereMesh" id="SphereMesh_cbx31"]
 material = SubResource("StandardMaterial3D_s334u")
