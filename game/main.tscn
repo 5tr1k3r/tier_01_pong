@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dk2uxsqyi2ylg"]
+[gd_scene load_steps=11 format=3 uid="uid://dk2uxsqyi2ylg"]
 
 [ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://game/arena/arena.tscn" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://game/main.gd" id="1_vop5m"]
 [ext_resource type="PackedScene" uid="uid://jf2xhx0ukpmu" path="res://game/paddle/paddle.tscn" id="2_h2yge"]
 [ext_resource type="AudioStream" uid="uid://cjbtry5bc735s" path="res://game/resources/audio/ball_got_stuck.ogg" id="5_wjctj"]
+[ext_resource type="PackedScene" uid="uid://46l18hoq5sdo" path="res://game/camera/camera.tscn" id="5_xkbyp"]
 [ext_resource type="PackedScene" uid="uid://cok408amobp38" path="res://game/ui/ui.tscn" id="6_wjctj"]
 [ext_resource type="AudioStream" uid="uid://b43jdr6lsw452" path="res://game/resources/audio/right_player_scores.ogg" id="6_xkbyp"]
 [ext_resource type="AudioStream" uid="uid://dg4e7pjqxduk7" path="res://game/resources/audio/left_player_scores.ogg" id="7_lx3aj"]
@@ -28,14 +29,8 @@ left_player_score_sound = ExtResource("7_lx3aj")
 
 [node name="Arena" parent="." instance=ExtResource("1_0xm2m")]
 
-[node name="CameraPivot" type="Marker3D" parent="."]
+[node name="Camera" parent="." instance=ExtResource("5_xkbyp")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-projection = 1
-size = 6.5
-far = 15.0
 
 [node name="SunPivot" type="Marker3D" parent="."]
 transform = Transform3D(0.965926, -0.0669873, 0.25, 0.258819, 0.25, -0.933013, 0, 0.965926, 0.258819, 0, 0, 0)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://46l18hoq5sdo"]
+
+[ext_resource type="Script" uid="uid://cjltcoimqvys6" path="res://game/camera/camera.gd" id="1_l8o5r"]
+
+[node name="CameraPivot" type="Marker3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_l8o5r")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+projection = 1
+size = 6.5
+far = 15.0

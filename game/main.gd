@@ -3,7 +3,6 @@ extends Node
 @onready var arena: Arena = $Arena
 @onready var right_score_label: Label = $UI/RightScoreLabel
 @onready var left_score_label: Label = $UI/LeftScoreLabel
-@onready var camera_pivot: Marker3D = $CameraPivot
 @onready var ball_spawn_timer: Timer = $BallSpawnTimer
 @onready var ball_got_stuck_sound: AudioStreamPlayer3D = $BallGotStuckSound
 @onready var score_occurred_sound: AudioStreamPlayer3D = $ScoreOccurredSound
@@ -32,13 +31,6 @@ func spawn_ball() -> void:
 	add_child(ball)
 	
 	ball.ball_got_stuck.connect(_on_ball_got_stuck)
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_page_down"):
-		camera_pivot.rotation.x += deg_to_rad(10)
-	
-	if event.is_action_pressed("ui_page_up"):
-		camera_pivot.rotation.x -= deg_to_rad(10)
 
 func update_score(scoring_side: Enums.PlayerSide) -> void:
 	match scoring_side:
