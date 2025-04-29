@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cxgdekfokh31n"]
+[gd_scene load_steps=6 format=3 uid="uid://cxgdekfokh31n"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://cwsnaj80qwdkx" path="res://game/resources/bouncy_material.tres" id="1_mq3ft"]
 [ext_resource type="Script" uid="uid://c0t8dt8xgeuh3" path="res://game/arena/wall/wall.gd" id="2_f4qfa"]
+[ext_resource type="Material" uid="uid://dhjwenhp3w662" path="res://game/arena/wall/wall_material.tres" id="3_f4qfa"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_g21bf"]
+material = ExtResource("3_f4qfa")
 size = Vector3(7, 1.5, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ubfh8"]

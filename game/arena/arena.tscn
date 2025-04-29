@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmu2cagi6ktli"]
+[gd_scene load_steps=8 format=3 uid="uid://bmu2cagi6ktli"]
 
 [ext_resource type="Script" uid="uid://45rmt4wr4xa4" path="res://game/arena/arena.gd" id="1_27ga2"]
 [ext_resource type="PackedScene" uid="uid://cxgdekfokh31n" path="res://game/arena/wall/wall.tscn" id="1_ubfh8"]
@@ -11,7 +11,11 @@ albedo_color = Color(0.234312, 0.428678, 0.42475, 1)
 material = SubResource("StandardMaterial3D_7dm0k")
 size = Vector3(30, 1, 30)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ayqyn"]
+albedo_color = Color(0.74, 0.75, 0.735, 1)
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_444vf"]
+material = SubResource("StandardMaterial3D_ayqyn")
 top_radius = 0.04
 bottom_radius = 0.04
 height = 5.0
