@@ -34,10 +34,6 @@ func spawn_ball() -> void:
 	ball.ball_got_stuck.connect(_on_ball_got_stuck)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		for _i in range(50):
-			spawn_ball()
-	
 	if event.is_action_pressed("ui_page_down"):
 		camera_pivot.rotation.x += deg_to_rad(10)
 	
