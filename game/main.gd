@@ -6,8 +6,8 @@ extends Node
 @onready var ball_spawn_timer: Timer = $BallSpawnTimer
 @onready var ball_got_stuck_sound: AudioStreamPlayer3D = $BallGotStuckSound
 @onready var score_occurred_sound: AudioStreamPlayer3D = $ScoreOccurredSound
-@onready var topdown_camera: Marker3D = $TopdownCamera
-@onready var third_person_camera: Node3D = $RightPaddle/ThirdPersonCamera
+@onready var topdown_camera: Camera3D = $TopdownCamera.get_node("%Camera3D")
+@onready var third_person_camera: Camera3D = $RightPaddle/ThirdPersonCamera.get_node("%Camera3D")
 
 @export var right_player_score_sound: AudioStream
 @export var left_player_score_sound: AudioStream
@@ -137,9 +137,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("switch_camera"):
 		is_third_person_camera = !is_third_person_camera
 		if is_third_person_camera:
-			third_person_camera.get_node("%Camera3D").current = true
+			third_person_camera.make_current()
 		else:
-			topdown_camera.get_node("%Camera3D").current = true
+			topdown_camera.make_current()
 
 func _on_arena_score_occurred(player_side: Enums.PlayerSide) -> void:
 	play_score_sound(player_side)

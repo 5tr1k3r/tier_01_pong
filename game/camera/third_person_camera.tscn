@@ -1,7 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://gar1u3i2kxw2"]
 
 [sub_resource type="Environment" id="Environment_xkbyp"]
-ssao_enabled = true
 fog_enabled = true
 
 [node name="CameraPivot" type="Node3D"]
