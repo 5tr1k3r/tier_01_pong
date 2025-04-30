@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dk2uxsqyi2ylg"]
+[gd_scene load_steps=12 format=3 uid="uid://dk2uxsqyi2ylg"]
 
 [ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://game/arena/arena.tscn" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://game/main.gd" id="1_vop5m"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://46l18hoq5sdo" path="res://game/camera/camera.tscn" id="5_xkbyp"]
 [ext_resource type="PackedScene" uid="uid://cok408amobp38" path="res://game/ui/ui.tscn" id="6_wjctj"]
 [ext_resource type="AudioStream" uid="uid://b43jdr6lsw452" path="res://game/resources/audio/right_player_scores.ogg" id="6_xkbyp"]
+[ext_resource type="PackedScene" uid="uid://gar1u3i2kxw2" path="res://game/camera/third_person_camera.tscn" id="7_itumj"]
 [ext_resource type="AudioStream" uid="uid://dg4e7pjqxduk7" path="res://game/resources/audio/left_player_scores.ogg" id="7_lx3aj"]
 
 [sub_resource type="Curve3D" id="Curve3D_lquwl"]
@@ -29,7 +30,7 @@ left_player_score_sound = ExtResource("7_lx3aj")
 
 [node name="Arena" parent="." instance=ExtResource("1_0xm2m")]
 
-[node name="Camera" parent="." instance=ExtResource("5_xkbyp")]
+[node name="TopdownCamera" parent="." instance=ExtResource("5_xkbyp")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
 [node name="SunPivot" type="Marker3D" parent="."]
@@ -42,6 +43,9 @@ shadow_opacity = 0.95
 
 [node name="RightPaddle" parent="." instance=ExtResource("2_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.3, 0)
+
+[node name="ThirdPersonCamera" parent="RightPaddle" instance=ExtResource("7_itumj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.65, 0)
 
 [node name="LeftPaddle" parent="." instance=ExtResource("2_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.3, 0)

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://gar1u3i2kxw2"]
+
+[sub_resource type="Environment" id="Environment_xkbyp"]
+ssao_enabled = true
+fog_enabled = true
+
+[node name="CameraPivot" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+collision_mask = 2
+spring_length = 1.2
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+unique_name_in_owner = true
+environment = SubResource("Environment_xkbyp")
+fov = 90.0
+far = 20.0
