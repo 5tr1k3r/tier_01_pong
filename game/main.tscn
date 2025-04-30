@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dk2uxsqyi2ylg"]
+[gd_scene load_steps=13 format=3 uid="uid://dk2uxsqyi2ylg"]
 
 [ext_resource type="PackedScene" uid="uid://bmu2cagi6ktli" path="res://game/arena/arena.tscn" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://d3xbk3giys87o" path="res://game/main.gd" id="1_vop5m"]
 [ext_resource type="PackedScene" uid="uid://jf2xhx0ukpmu" path="res://game/paddle/paddle.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://cqk3ktjflb5ey" path="res://game/ball/ball.tscn" id="4_itumj"]
 [ext_resource type="AudioStream" uid="uid://cjbtry5bc735s" path="res://game/resources/audio/ball_got_stuck.ogg" id="5_wjctj"]
 [ext_resource type="PackedScene" uid="uid://46l18hoq5sdo" path="res://game/camera/camera.tscn" id="5_xkbyp"]
 [ext_resource type="PackedScene" uid="uid://cok408amobp38" path="res://game/ui/ui.tscn" id="6_wjctj"]
@@ -27,6 +28,7 @@ ambient_light_energy = 0.05
 script = ExtResource("1_vop5m")
 right_player_score_sound = ExtResource("6_xkbyp")
 left_player_score_sound = ExtResource("7_lx3aj")
+ball_scene = ExtResource("4_itumj")
 
 [node name="Arena" parent="." instance=ExtResource("1_0xm2m")]
 

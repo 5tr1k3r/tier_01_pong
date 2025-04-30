@@ -12,11 +12,15 @@ extends Node
 @export var right_player_score_sound: AudioStream
 @export var left_player_score_sound: AudioStream
 @export var is_third_person_camera: bool = false
+@export var ball_scene: PackedScene
+@export var ball_pool_size: int = 2
 
+var _ball_pool: Array[Ball] = []
 var right_score: int = 0
 var left_score: int = 0
 
 func _ready() -> void:
+	_initialize_ball_pool()
 	if arena:
 		arena.score_occurred.connect(_on_arena_score_occurred)
 	else:
@@ -24,16 +28,37 @@ func _ready() -> void:
 	
 	ball_spawn_timer.start()
 
+func _initialize_ball_pool() -> void:
+	if not ball_scene:
+		printerr("Ball Scene not assigned in the Main inspector!")
+		return
+	
+	for i in range(ball_pool_size):
+		var ball: Ball = ball_scene.instantiate()
+		add_child(ball)
+		ball.initialize_pool_object()
+		ball.set_inactive_state()
+		remove_child(ball)
+		_ball_pool.append(ball)
+
 func spawn_ball() -> void:
-	var ball: Ball = preload("res://game/ball/ball.tscn").instantiate()
+	if _ball_pool.is_empty():
+		printerr("Ball pool empty!")
+		return
+	
+	var ball: Ball = _ball_pool.pop_front()
 
 	var spawn_location: PathFollow3D = $SpawnPath/SpawnLocation
 	spawn_location.progress_ratio = randf()
 	ball.setup(spawn_location.position)
-	
 	add_child(ball)
+	ball.set_active_state()
 	
-	ball.ball_got_stuck.connect(_on_ball_got_stuck)
+	if not ball.ball_got_stuck.is_connected(_on_ball_got_stuck):
+		ball.ball_got_stuck.connect(_on_ball_got_stuck)
+	
+	if not ball.ball_returning_to_pool.is_connected(_on_ball_returning_to_pool):
+		ball.ball_returning_to_pool.connect(_on_ball_returning_to_pool)
 
 func update_score(scoring_side: Enums.PlayerSide) -> void:
 	match scoring_side:
@@ -82,3 +107,14 @@ func _on_ball_spawn_timer_timeout() -> void:
 func _on_ball_got_stuck() -> void:
 	ball_got_stuck_sound.play()
 	ball_spawn_timer.start()
+
+func _on_ball_returning_to_pool(ball: Ball) -> void:
+	if is_instance_valid(ball):
+		if ball.get_parent() == self:
+			remove_child(ball)
+		
+		ball.set_inactive_state()
+		
+		# Avoid adding duplicates if something went wrong
+		if not _ball_pool.has(ball):
+			_ball_pool.push_back(ball)
