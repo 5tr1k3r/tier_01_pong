@@ -4,7 +4,7 @@ extends Marker3D
 @export var vertical_orientation: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("switch_orientation"):
 		if !camera.current:
 			return
 		

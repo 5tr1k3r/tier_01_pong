@@ -1,7 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://cok408amobp38"]
+[gd_scene load_steps=6 format=3 uid="uid://cok408amobp38"]
 
 [ext_resource type="FontFile" uid="uid://b1q1rf2rnin7t" path="res://assets/Kenney Bold.ttf" id="1_4xhdt"]
 [ext_resource type="Script" uid="uid://b8vxr3t6mwlrb" path="res://game/ui/ui.gd" id="1_jxga3"]
+[ext_resource type="LabelSettings" uid="uid://dqjtjqym4acmq" path="res://game/ui/help_label_settings.tres" id="3_kvrpj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tlxmm"]
+content_margin_left = 15.0
+content_margin_top = 10.0
+content_margin_right = 15.0
+content_margin_bottom = 10.0
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_kvrpj"]
+font_size = 12
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="UI" type="Control"]
 process_mode = 3
@@ -17,8 +35,10 @@ script = ExtResource("1_jxga3")
 layout_mode = 1
 offset_right = 250.0
 offset_bottom = 250.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 16
 theme_override_fonts/font = ExtResource("1_4xhdt")
-theme_override_font_sizes/font_size = 47
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -31,8 +51,10 @@ anchor_right = 1.0
 offset_left = -250.0
 offset_bottom = 250.0
 grow_horizontal = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 16
 theme_override_fonts/font = ExtResource("1_4xhdt")
-theme_override_font_sizes/font_size = 47
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -63,3 +85,107 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_4xhdt")
 theme_override_font_sizes/font_size = 44
 text = "PAUSED"
+
+[node name="HelpContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -89.0
+offset_right = 295.0
+offset_bottom = 89.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tlxmm")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HelpContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HelpContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Move Up"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label2" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Move Down"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label3" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Switch Camera"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label4" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Switch Orientation"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label5" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label6" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Show Help"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HelpContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Label" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Up / Right"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label2" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Down / Left"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label3" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "C"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label4" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Space"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label5" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "P"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="Label6" type="Label" parent="HelpContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "F1"
+label_settings = ExtResource("3_kvrpj")
+
+[node name="HelpLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -33.0
+offset_right = 139.0
+offset_bottom = -10.0
+grow_vertical = 0
+text = "Controls: F1"
+label_settings = SubResource("LabelSettings_kvrpj")
+vertical_alignment = 2
+
+[node name="HelpTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="HelpTimer" to="." method="_on_help_timer_timeout"]
