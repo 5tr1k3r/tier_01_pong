@@ -1,13 +1,12 @@
 extends Node
 
 @onready var arena: Arena = $Arena
-@onready var right_score_label: Label = $UI/RightScoreLabel
-@onready var left_score_label: Label = $UI/LeftScoreLabel
 @onready var ball_spawn_timer: Timer = $BallSpawnTimer
 @onready var ball_got_stuck_sound: AudioStreamPlayer3D = $BallGotStuckSound
 @onready var score_occurred_sound: AudioStreamPlayer3D = $ScoreOccurredSound
 @onready var topdown_camera: Camera3D = $TopdownCamera.get_node("%Camera3D")
 @onready var third_person_camera: Camera3D = $RightPaddle/ThirdPersonCamera.get_node("%Camera3D")
+@onready var ui: Control = $UI
 
 @export var right_player_score_sound: AudioStream
 @export var left_player_score_sound: AudioStream
@@ -109,10 +108,8 @@ func update_score(scoring_side: Enums.PlayerSide) -> void:
 	match scoring_side:
 		Enums.PlayerSide.RIGHT:
 			right_score += 1
-			right_score_label.text = str(right_score)
 		Enums.PlayerSide.LEFT:
 			left_score += 1
-			left_score_label.text = str(left_score)
 
 func play_score_sound(scoring_side: Enums.PlayerSide) -> void:
 	var sound_to_play : AudioStream = null
@@ -145,6 +142,7 @@ func _on_arena_score_occurred(player_side: Enums.PlayerSide) -> void:
 	play_score_sound(player_side)
 	update_score(player_side)
 	ball_spawn_timer.start()
+	ui.update_score_labels(player_side, right_score, left_score)
 
 func _on_ball_spawn_timer_timeout() -> void:
 	spawn_ball()
